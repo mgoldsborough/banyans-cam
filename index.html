@@ -1,0 +1,47 @@
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+</head>
+<body>
+  <div id="player"></div>
+  </div>
+
+  <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+  <script type="text/javascript" src="/jwplayer/jwplayer.js"></script>
+  <script type="text/javascript" src="/jwplayer/jwplayer.html5.js"></script>
+
+  <!-- surfstreams key -->
+  <script type="text/javascript">jwplayer.key="YS4xpgH6/2TvlkxzmcyourFpS9w0jKSbd8cRcA==";</script>
+  <script>
+
+  function createPlayer(stream) {
+    jwplayer('player').setup({
+      primary: 'html5',
+      file: stream.file,
+      autostart: true,
+      width: '100%',
+      aspectratio: '16:9'
+    });
+  }
+
+  // Banyans url
+  var url = 'http://api.surfline.com/v1/cams/4762';
+
+  jQuery.ajax({
+    url: url,
+    type: 'GET',
+    dataType: 'jsonp',
+    success : function(responseData){
+      console.log(responseData)
+      var data = responseData.streamInfo.stream[0];
+      createPlayer(data);
+    },
+    error : function(err){
+      console.log('ERR', err);
+    }
+  });
+
+  </script>
+</body>
+</html>
